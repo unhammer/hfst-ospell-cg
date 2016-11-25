@@ -2,7 +2,7 @@
 #+STARTUP: showall
 
 #+CAPTION: Build Status
-[[https://travis-ci.org/unhammer/divvun-suggest][https://travis-ci.org/unhammer/hfst-ospell-cg.svg]]
+[[https://travis-ci.org/unhammer/hfst-ospell-cg][https://travis-ci.org/unhammer/hfst-ospell-cg.svg]]
 
 * Description
 
