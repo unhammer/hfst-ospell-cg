@@ -46,6 +46,14 @@ Takes one arguments: a hfst-ospell zhfst archive
 src/hfst-ospell-cg se.zhfst < input > output
 #+END_SRC
 
+You give a max weight (exclusive) with =-w=, or max suggestions with
+=-n=, e.g.
+
+#+BEGIN_SRC sh
+src/hfst-ospell-cg -w 30000 se.zhfst < input > output
+src/hfst-ospell-cg -n 3000 se.zhfst < input > output
+#+END_SRC
+
 
 * Troubleshooting
 

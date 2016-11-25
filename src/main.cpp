@@ -33,7 +33,8 @@ int main(int argc, char ** argv)
 			("l,lexicon", "Lexicon (UNIMPLEMENTED, HFSTOL format)", cxxopts::value<std::string>(), "BIN")
 			("m,errmodel", "Error model (UNIMPLEMENTED, HFSTOL format)", cxxopts::value<std::string>(), "BIN")
 			("n,limit", "Show at most N suggestions", cxxopts::value<int>(), "N")
-			("w,max-weight", "Suppress corrections with weights above W", cxxopts::value<int>(), "W")
+			("w,max-weight", "Suppress corrections with correction weights above W", cxxopts::value<int>(), "W")
+			("W,max-analysis-weight", "Suppress corrections with analysis weights above WA", cxxopts::value<int>(), "WA")
 			("i,input", "Input file (UNIMPLEMENTED, stdin for now)", cxxopts::value<std::string>(), "FILE")
 			("o,output", "Output file (UNIMPLEMENTED, stdout for now)", cxxopts::value<std::string>(), "FILE")
 			("z,null-flush", "(UNIMPLEMENTED, Ignored, we always flush on \\0, outputting <STREAMCMD:FLUSH>).")
@@ -70,6 +71,7 @@ int main(int argc, char ** argv)
 		const auto& zhfstfile = options["archive"].as<std::string>();
 		const auto& limit = options.count("limit") ? options["limit"].as<int>() : INT_MAX;
 		const auto& max_weight = options.count("max-weight") ? options["max-weight"].as<int>() : INT_MAX;
+		const auto& max_analysis_weight = options.count("max-analysis-weight") ? options["max-analysis-weight"].as<int>() : INT_MAX;
 
 		bool verbose = options.count("v");
 		if(verbose) {
@@ -83,7 +85,7 @@ int main(int argc, char ** argv)
 			return(EXIT_FAILURE);
 		}
 
-		gtd::run(std::cin, std::cout, *s, limit, max_weight);
+		gtd::run(std::cin, std::cout, *s, limit, max_weight, max_analysis_weight);
 	}
 	catch (const cxxopts::OptionException& e)
 	{
