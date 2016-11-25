@@ -56,28 +56,33 @@ void run(std::istream& is, std::ostream& os, hfst_ol::ZHfstOspeller& s, int limi
 			}
 		}
 		else {
+			bool printed = false;
 			auto cq = s.suggest(line);
 			while(!cq.empty() && (limit--) > 0) {
 				const auto& elt = cq.top();
 				const auto& f = elt.first;
 				const auto& w = (int)(elt.second * WEIGHT_FACTOR);
-				if(w > max_weight) {
+				if(w >= max_weight) {
 					break;
 				}
 				auto aq = s.analyse(f, true);
 				while(!aq.empty()) {
 					const auto& elt = aq.top();
 					const auto& a = elt.first;
-					const auto& w_a = (int)(elt.second);
-					if(w > max_analysis_weight) {
+					const auto& w_a = (int)(elt.second * WEIGHT_FACTOR);
+					if(w_a >= max_analysis_weight) {
 						break;
 					}
 					os << "\t";
 					hacky_cg_anaformat(a, os);
 					os << " <W:" << w << "> <WA:" << w_a << "> \"<" << f << ">\"" << std::endl;
+					printed = true;
 					aq.pop();
 				}
 				cq.pop();
+			}
+			if(!printed) {
+				os << "\t\"" << line << "\" ?" << std::endl;
 			}
 		}
 

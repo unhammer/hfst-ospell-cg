@@ -46,7 +46,7 @@ Takes one arguments: a hfst-ospell zhfst archive
 src/hfst-ospell-cg se.zhfst < input > output
 #+END_SRC
 
-You give a max weight (exclusive, based on error model) with =-w=, or
+You give a max weight (inclusive, based on error model) with =-w=, or
 max suggestions with =-n=, e.g.
 
 #+BEGIN_SRC sh
@@ -63,7 +63,8 @@ src/hfst-ospell-cg -w 10000 se.zhfst < input > output
 #+END_SRC
 
 Note that FST weights are multiplied by 1000 and cast to integers,
-since CG expects numerical tags to be integral.
+since CG expects numerical tags to be integral. Comparisons are
+inclusive (greater-than-or-equals).
 
 * Troubleshooting
 
